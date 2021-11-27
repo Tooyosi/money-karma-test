@@ -1,0 +1,11 @@
+.btn-tabs{
+  padding: 30px;
+  border: 1px dotted black;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.btn-tabs.active{
+  background-color: #adad32;
+  color: white;
+}
