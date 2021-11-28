@@ -4,9 +4,8 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import App from "../App";
 import ChallengeInput from "../SubComponents/ChallengeInput";
 import ResultComponent from "../SubComponents/ResultComponent";
-import { ChallengeDetailsCard } from "../../Common/ChallengeDetailsCard";
 import { testDetailsCalculator } from "../../utilities/testDetailsCalculator";
-import { convertTime, onChange } from "../../utilities";
+import { convertTime } from "../../utilities";
 
 Enzyme.configure({ adapter: new Adapter() })
 const tabs = ["challangeComp", "timerComp", "mainComp"]

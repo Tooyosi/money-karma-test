@@ -24,7 +24,7 @@ export default function ChallengeInput({formName, formControl, handleChange, inp
                                 {formControl.challangeType !== "" &&
                                     <Row className="mt-4">
                                         <Col>
-                                            <Label>Paste Paragraph</Label>
+                                            <Label>{formControl.challangeType} Paragraph</Label>
                                             <Input
                                                 type="textarea"
                                                 data-testid="text-input"

@@ -37,7 +37,7 @@ export default function MainComponent({ toggleTab, formName, formControl, handle
                     onSubmit={onSubmit}
                     goBack={() => toggleTab(PREV)}
                     submitText={state["timerCompForm"].text === 0? "View Result" : "Submit"}
-                    hideSubmit={formControl.inputtedText === "" ||  state.showSuccessModal}
+                    hideSubmit={(formControl.inputtedText === "" && state["timerCompForm"].text !== 0) ||  state.showSuccessModal}
                 />
             </form>
 
