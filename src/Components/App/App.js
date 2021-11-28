@@ -1,41 +1,48 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { paragraphs } from "../../Data/paragraphs";
-import { onChange, randomise } from "../utilities";
+import { convertTime, onChange, randomise } from "../utilities";
 import { CUSTOM, NEXT, PREV } from "../utilities/constants";
+import { testDetailsCalculator } from "../utilities/testDetailsCalculator";
 import './App.css';
 import ChallengeInput from "./SubComponents/ChallengeInput";
+import MainComponent from "./SubComponents/MainComponent";
 import TimerSelector from "./SubComponents/TimerSelector";
 
 const MapSubComponents = ({ activeTab, ...props }) => {
   let components = {
     challangeComp: <ChallengeInput {...props} />,
     timerComp: <TimerSelector {...props} />,
-    mainComp: <>The main component</>
+    mainComp: <MainComponent {...props} />
   }
 
   return components[activeTab]
 }
 function App() {
-
+  let timer
   const tabs = ["challangeComp", "timerComp", "mainComp"]
-  const [state, setState] = useState({
+  const defaultState = {
     activeTab: tabs[0],
+    showSuccessModal: false,
     challangeCompForm: {
       challangeType: '',
       text: ''
     },
     timerCompForm: {
-      timerType: '',
-      text: ''
+      timerStarted: false,
+      text: 0,
+      inputtedTime: '',
+      timeDifference: ''
     },
-    data: {
-      challenge: '',
-      time: 0,
+    mainCompForm: {
+      points: 0,
       words: 0,
       characters: 0,
       mistakes: 0,
+      inputtedText: '',
+      speed: ''
     }
-  })
+  }
+  const [state, setState] = useState(defaultState)
 
   const updateState = (data) => {
     setState((prev) => ({
@@ -62,6 +69,19 @@ function App() {
       }
       updateState({
         challangeCompForm: updateObj
+      })
+
+    }
+    if (e.target.name === "inputtedText") {
+      if (!state.timerCompForm.timerStarted) {
+        startTimer()
+      }
+      const updatedDetails = testDetailsCalculator(state.challangeCompForm.text, e.target.value)
+      updateState({
+        mainCompForm: {
+          ...updatedDetails,
+          inputtedText: e.target.value
+        }
       })
 
     }
@@ -98,11 +118,59 @@ function App() {
           toggleTab(NEXT)
         }
         break;
+      case tabs[2]:
+        if (timer) {
+          clearInterval(timer)
+        }
+        let { timerCompForm: { text: currentTime, inputtedTime } } = state
+        const timeDiff = inputtedTime - currentTime
+        updateState({
+          showSuccessModal: true,
+          timerCompForm:{
+            ...state.timerCompForm,
+            timeDifference: convertTime(timeDiff)
+          }
+        })
+        break;
       default:
         break;
     }
   }
 
+  const startTimer = () => {
+    updateState({
+      timerCompForm: {
+        ...state.timerCompForm,
+        timerStarted: true,
+        inputtedTime: state.timerCompForm.text
+      }
+    });
+    timer = setInterval(() => {
+      setState((prev) => {
+        if (prev.timerCompForm.text > 0) {
+          return {
+            ...prev,
+            timerCompForm: {
+              ...prev.timerCompForm,
+              text: (prev.timerCompForm.text - 1)
+            }
+          }
+        } else {
+          clearInterval(timer)
+          return {
+            ...prev,
+          }
+        }
+      })
+
+    }, 1000)
+  }
+
+  useEffect(() => {
+    if (timer) {
+      clearInterval(timer)
+    }
+  }, [state.showSuccessModal, timer])
   return (
     <MapSubComponents
       activeTab={activeTab}
@@ -111,7 +179,11 @@ function App() {
       formName={`${activeTab}Form`}
       handleChange={handleChange}
       inputs={inputs}
+      state={state}
       onSubmit={(e) => handleSubmit(e, activeTab)}
+      reset={() => {
+        updateState(defaultState)
+      }}
     />
   )
 }

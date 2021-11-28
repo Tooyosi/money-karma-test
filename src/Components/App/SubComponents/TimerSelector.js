@@ -15,7 +15,7 @@ export default function TimerSelector({ toggleTab, formName, formControl, handle
                                 <Row>
                                     {inputs.map((type, i) => (
                                         <Col xs="3" key={i} className="my-2">
-                                            <div className={`btn-tabs text-center ${formControl.text === (i + 1) ? 'active' : ''}`} onClick={() => handleChange({ target: { name: "text", value: (i + 1) } }, formName)}>
+                                            <div className={`btn-tabs text-center ${formControl.text === ((i + 1) * 60) ? 'active' : ''}`} onClick={() => handleChange({ target: { name: "text", value: ((i + 1) * 60) } }, formName)}>
                                                 {(i + 1)}m
                                             </div>
                                         </Col>
@@ -28,10 +28,10 @@ export default function TimerSelector({ toggleTab, formName, formControl, handle
                                         <Input
                                             type="number"
                                             min="0"
-                                            max="60"
+                                            max={60}
                                             name="text"
-                                            value={formControl.text}
-                                            onChange={handleChange}
+                                            value={formControl.text > 0 ? (formControl.text / 60) : ''}
+                                            onChange={(e) => handleChange({ target: { name: "text", value: Number(e.target.value) <= 60 ? ((Number(e.target.value)) * 60) : formControl.text } }, formName)}
                                             required={true}
                                         />
                                     </Col>

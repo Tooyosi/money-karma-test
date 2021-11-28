@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Col, Container, Row } from 'reactstrap'
 
-export default function FooterButton({ onSubmit, hasPrevious, hideSubmit, goBack }) {
+export default function FooterButton({ onSubmit, hasPrevious, hideSubmit, goBack, submitText }) {
     return (
         <Container>
             <Row className="mt-3">
@@ -23,7 +23,7 @@ export default function FooterButton({ onSubmit, hasPrevious, hideSubmit, goBack
                             type="submit"
                             onClick={onSubmit}
                             color="primary"
-                        >Proceed</Button>}
+                        >{submitText? submitText : "Proceed"}</Button>}
                 </Col>
             </Row>
         </Container>

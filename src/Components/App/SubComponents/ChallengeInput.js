@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardBody, Col, Container, Input, Label, Row } from 'reactstrap'
 import FooterButton from '../../Common/FooterButton'
 
-export default function ChallengeInput({ toggleTab, formName, formControl, handleChange, inputs, onSubmit }) {
+export default function ChallengeInput({formName, formControl, handleChange, inputs, onSubmit }) {
     return (
         <Container>
             <form name={formName}>
@@ -10,7 +10,7 @@ export default function ChallengeInput({ toggleTab, formName, formControl, handl
                     <Col md="6" className="m-auto">
                         <Card>
                             <CardBody>
-                                <h4>Select Input Type</h4>
+                                <h4>Select Challange</h4>
                                 <Row>
                                     {inputs.map((type) => (
                                         <Col xs="6" key={type}>

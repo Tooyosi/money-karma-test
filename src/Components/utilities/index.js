@@ -12,3 +12,20 @@ export const onChange = (e, changeState, formName) => {
 }
 
 export const randomise = (list) => list[Math.floor(Math.random() * list.length)]
+
+
+export const convertTime = (time)=>{
+    let minutes = parseInt(time / 60, 10);
+    let seconds = parseInt(time % 60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return  minutes + ":" + seconds;
+    // if(time> 60){
+    //     let minutes = Math.floor(time / 60) 
+    //     return minutes
+    // }else{
+    //     return time
+    // }
+}
