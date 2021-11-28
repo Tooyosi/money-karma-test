@@ -22,10 +22,4 @@ export const convertTime = (time)=>{
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     return  minutes + ":" + seconds;
-    // if(time> 60){
-    //     let minutes = Math.floor(time / 60) 
-    //     return minutes
-    // }else{
-    //     return time
-    // }
 }

@@ -25,7 +25,7 @@ export default function ResultComponent({ mapData, toggle, isSuccess, timeLeft, 
                     <ChallengeDetailsCard cardName={"Completed in"} cardValue={`${timeLeft}s`} />
                 </Col>
                 <Col sm="12" className="my-3">
-                    <Button className="btn-block" color="primary" onClick={toggle}>Restart</Button>
+                    <Button className="btn-block" data-testid="restart-button" color="primary" onClick={toggle}>Restart</Button>
                 </Col>
             </Row>
         </Container>

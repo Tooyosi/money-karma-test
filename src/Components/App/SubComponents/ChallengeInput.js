@@ -14,7 +14,7 @@ export default function ChallengeInput({formName, formControl, handleChange, inp
                                 <Row>
                                     {inputs.map((type) => (
                                         <Col xs="6" key={type}>
-                                            <div className={`btn-tabs text-center ${formControl.challangeType === type ? 'active' : ''}`} onClick={() => handleChange({ target: { name: "challangeType", value: type } }, formName)}>
+                                            <div data-testid={type} className={`btn-tabs text-center ${formControl.challangeType === type ? 'active' : ''}`} onClick={() => handleChange({ target: { name: "challangeType", value: type } }, formName)}>
                                                 {type} Paragraph
                                             </div>
                                         </Col>
@@ -27,6 +27,7 @@ export default function ChallengeInput({formName, formControl, handleChange, inp
                                             <Label>Paste Paragraph</Label>
                                             <Input
                                                 type="textarea"
+                                                data-testid="text-input"
                                                 name="text"
                                                 value={formControl.text}
                                                 onChange={handleChange}
